@@ -5,56 +5,57 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JHUB Shop</title>
 <style>
+/* Base */
 body, html {
   margin:0;
   padding:0;
   font-family:'Segoe UI', sans-serif;
-  overflow-x:hidden;
-  background:#0b0c10;
+  background:#1f1f1f;
   color:#fff;
+  overflow-x:hidden;
 }
 
-/* Animated Gradient Background */
+/* Animated grey gradient background */
 body::before {
   content:"";
   position:fixed;
   top:0; left:0;
   width:100%; height:100%;
-  background: linear-gradient(270deg,#1e3c72,#2a5298,#1e3c72);
+  background: linear-gradient(270deg,#2c2c2c,#3a3a3a,#2c2c2c);
   background-size: 600% 600%;
   z-index:-2;
   animation: GradientBG 20s ease infinite;
 }
-
 @keyframes GradientBG {
   0% { background-position:0% 50%; }
   50% { background-position:100% 50%; }
   100% { background-position:0% 50%; }
 }
 
-/* Header & Hero */
+/* Header */
 header {
   text-align:center;
   font-size:42px;
   font-weight:bold;
   padding:30px;
-  color:#fff;
-  text-shadow:2px 2px 10px rgba(0,0,0,0.7);
+  color:#e0e0e0;
+  text-shadow:1px 1px 5px #000;
 }
+
+/* Hero Section */
 .hero {
   width:90%;
   margin:0 auto 20px auto;
-  height:200px;
+  height:180px;
   border-radius:20px;
   background:rgba(255,255,255,0.05);
   display:flex;
   justify-content:center;
   align-items:center;
-  font-size:32px;
+  font-size:28px;
   font-weight:bold;
-  color:#fff;
-  text-shadow:1px 1px 5px rgba(0,0,0,0.5);
-  transition:0.3s;
+  text-align:center;
+  color:#ddd;
 }
 
 /* Tabs */
@@ -65,32 +66,27 @@ header {
   margin-bottom:20px;
 }
 .nav button {
-  background:linear-gradient(45deg,#03a9f4,#2196f3);
+  background:#555;
   color:#fff;
   border:none;
-  padding:12px 25px;
+  padding:10px 20px;
   cursor:pointer;
   border-radius:8px;
-  font-size:16px;
+  font-size:14px;
   transition:0.3s;
 }
 .nav button:hover, .nav button.active {
-  background:linear-gradient(45deg,#0288d1,#03a9f4);
+  background:#777;
 }
 
 /* Tab Content */
 .tabcontent {
   display:none;
-  padding:20px;
+  padding:15px;
   max-width:1200px;
   margin:0 auto;
-  opacity:0;
-  transition:opacity 0.5s ease;
 }
-.tabcontent.active {
-  display:block;
-  opacity:1;
-}
+.tabcontent.active { display:block; }
 
 /* Product Grid */
 .products {
@@ -99,153 +95,54 @@ header {
   gap:20px;
 }
 .product {
-  background:rgba(255,255,255,0.05);
+  background:#2a2a2a;
   border-radius:15px;
-  padding:20px;
-  text-align:center;
-  transition:0.3s;
-  box-shadow:0 5px 20px rgba(0,0,0,0.5);
-  position:relative;
-  cursor:pointer;
-}
-.product:hover {
-  transform:translateY(-5px);
-  box-shadow:0 10px 30px rgba(0,0,0,0.7);
-}
-.best-seller {
-  border:2px solid #ff6f61;
-}
-
-/* Product Image */
-.product img {
-  width:100px;
-  height:100px;
-  border-radius:50%;
-  margin-bottom:15px;
-  object-fit:cover;
-  transition:transform 0.3s;
-}
-.product:hover img {
-  transform:scale(1.1);
-}
-
-/* Buttons */
-.product button, #basketBtn {
-  margin-top:10px;
-  background:linear-gradient(45deg,#03a9f4,#2196f3);
-  color:#fff;
-  border:none;
-  padding:12px 20px;
-  width:100%;
-  border-radius:8px;
-  font-size:16px;
-  cursor:pointer;
-  transition:0.3s;
-}
-.product button:hover, #basketBtn:hover {
-  background:linear-gradient(45deg,#0288d1,#03a9f4);
-}
-
-/* Smaller, subtler messages */
-.stock, .sold {
-  font-size:12px;
-  font-weight:500;
-  color:#ffd700;
-  margin-top:3px;
-}
-
-/* Reviews */
-.reviews-list {
-  max-height:400px;
-  overflow-y:auto;
-  margin-bottom:10px;
-  border:1px solid #555;
-  padding:10px;
-  border-radius:8px;
-  font-size:13px;
-}
-.review-item {
-  border-bottom:1px solid #555;
-  padding:3px 0;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-/* Review Input */
-textarea {
-  width:100%;
-  height:50px;
-  border-radius:6px;
-  border:none;
-  padding:8px;
-  margin-bottom:10px;
-  background:rgba(255,255,255,0.05);
-  color:#fff;
-  font-size:13px;
-}
-.submit-review {
-  background:linear-gradient(45deg,#2196f3,#03a9f4);
-  color:white;
-  border:none;
-  padding:8px 15px;
-  border-radius:6px;
-  cursor:pointer;
-  font-size:13px;
-  transition:0.3s;
-}
-.submit-review:hover {
-  background:linear-gradient(45deg,#0288d1,#03a9f4);
-}
-
-/* Terms of Service */
-.tos {
-  max-height:400px;
-  overflow-y:auto;
-  border:1px solid #555;
-  padding:8px;
-  border-radius:8px;
-  background:rgba(0,0,0,0.6);
-  font-size:13px;
-}
-
-/* Modals */
-.modal, .quick-view-modal {
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  background:rgba(0,0,0,0.95);
-  z-index:1000;
-}
-.modal-content, .quick-view-content {
-  background:#111;
-  color:#fff;
   padding:15px;
-  border-radius:15px;
-  max-width:400px;
-  width:90%;
   text-align:center;
-  box-shadow:0 0 25px rgba(255,255,255,0.3);
+  box-shadow:0 4px 15px rgba(0,0,0,0.5);
+  transition:0.3s;
+  cursor:pointer;
+}
+.product:hover { transform:translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.7); }
+.product img { width:100px; height:100px; border-radius:50%; margin-bottom:10px; object-fit:cover; }
+.product button { margin-top:10px; background:#888; border:none; padding:10px; width:100%; border-radius:6px; cursor:pointer; transition:0.3s; }
+.product button:hover { background:#aaa; }
+.best-seller { border:2px solid #ccc; }
+
+/* Stock/Sold */
+.stock, .sold { font-size:12px; color:#ccc; margin-top:2px; }
+
+/* Basket Modal */
+.modal {
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  display:none; justify-content:center; align-items:center;
+  background:rgba(0,0,0,0.95); z-index:1000;
+}
+.modal-content {
+  background:#222; padding:15px; border-radius:12px;
+  max-width:400px; width:90%; text-align:center;
+  box-shadow:0 0 25px rgba(255,255,255,0.2);
   font-size:14px;
 }
-.quick-view-content img {
-  width:150px;
-  height:150px;
-  border-radius:12px;
-  margin-bottom:10px;
-}
 
-/* Responsive */
-@media(max-width:600px){
-  .products{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));}
-  header{font-size:30px;}
-  .hero{font-size:24px;}
-}
+/* Quick View */
+.quick-view-content img { width:120px; height:120px; margin-bottom:10px; border-radius:12px; }
+
+/* Reviews */
+.reviews-list { max-height:250px; overflow-y:auto; border:1px solid #555; padding:10px; border-radius:6px; margin-bottom:10px; font-size:13px; }
+.review-item { display:flex; justify-content:space-between; padding:3px 0; border-bottom:1px solid #444; }
+
+/* Textarea and buttons */
+textarea { width:100%; height:50px; background:#2a2a2a; border:none; border-radius:6px; color:#ddd; padding:8px; margin-bottom:8px; font-size:13px; }
+.submit-review { background:#555; color:#fff; border:none; padding:8px 12px; border-radius:6px; cursor:pointer; font-size:13px; }
+.submit-review:hover { background:#777; }
+#basketBtn { padding:10px 16px; font-size:14px; background:#555; border-radius:6px; }
+#basketBtn:hover { background:#777; }
+
+/* Terms */
+.tos { max-height:300px; overflow-y:auto; background:#2a2a2a; border-radius:8px; padding:8px; font-size:13px; }
+
+@media(max-width:600px){ .products{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));} header{font-size:30px;} .hero{font-size:22px;} }
 </style>
 </head>
 <body>
@@ -288,16 +185,8 @@ textarea {
 </div>
 </div>
 
-<div id="paymentModal" class="modal">
-<div class="modal-content">
-<h2>Payment Pending</h2>
-<p>After PayPal checkout, join our Discord and create a ticket with proof to receive your account.</p>
-<button onclick="closePayment()">Close</button>
-</div>
-</div>
-
-<div id="quickView" class="quick-view-modal">
-<div class="quick-view-content">
+<div id="quickView" class="modal">
+<div class="modal-content quick-view-content">
 <img id="quick-img" src="" alt="">
 <h3 id="quick-title"></h3>
 <p id="quick-price"></p>
@@ -318,7 +207,6 @@ let cart=[];
 const productContainer=document.getElementById('products');
 const reviewsList=document.getElementById('reviews-list');
 
-// Render Products
 function renderProducts(){
 productContainer.innerHTML='';
 const maxSold=Math.max(...products.map(p=>p.sold));
@@ -337,90 +225,20 @@ productContainer.appendChild(div);
 });
 }
 
-// Cart functions
-function addToCart(i){
-if(products[i].stock<=0) return;
-cart.push(products[i]);
-products[i].stock--;
-products[i].sold++;
-renderProducts();
-renderCart();
-animateAddToCart(i);
-}
-function renderCart(){
-const list=document.getElementById('cart-items');
-const totalEl=document.getElementById('total');
-list.innerHTML='';
-let total=0;
-cart.forEach((item,idx)=>{
-const li=document.createElement('li');
-li.textContent=`${item.name} - $${item.price}`;
-li.style.cursor='pointer';
-li.onclick=()=>{
-cart.splice(idx,1);
-const pIndex=products.findIndex(p=>p.name===item.name);
-products[pIndex].stock++;
-products[pIndex].sold--;
-renderProducts();
-renderCart();
-};
-list.appendChild(li);
-total+=item.price;
-});
-totalEl.textContent=total.toFixed(2);
-}
+function addToCart(i){if(products[i].stock<=0)return;cart.push(products[i]);products[i].stock--;products[i].sold++;renderProducts();renderCart();animateAddToCart(i);}
+function renderCart(){const list=document.getElementById('cart-items');const totalEl=document.getElementById('total');list.innerHTML='';let total=0;cart.forEach((item,idx)=>{const li=document.createElement('li');li.textContent=`${item.name} - $${item.price}`;li.style.cursor='pointer';li.onclick=()=>{cart.splice(idx,1);const pIndex=products.findIndex(p=>p.name===item.name);products[pIndex].stock++;products[pIndex].sold--;renderProducts();renderCart();};list.appendChild(li);total+=item.price;});totalEl.textContent=total.toFixed(2);}
 
-// Reviews
-function addReview(){
-const text=document.getElementById('review-text').value.trim();
-if(!text) return alert("Write something first");
-const div=document.createElement('div');
-div.className='review-item';
-let stars=Math.floor(Math.random()*5)+1;
-div.innerHTML=`<span>${text}</span><span>${'★'.repeat(stars)}</span>`;
-reviewsList.prepend(div);
-document.getElementById('review-text').value='';
-}
+function addReview(){const text=document.getElementById('review-text').value.trim();if(!text)return alert("Write something first");const div=document.createElement('div');div.className='review-item';let stars=Math.floor(Math.random()*5)+1;div.innerHTML=`<span>${text}</span><span>${'★'.repeat(stars)}</span>`;reviewsList.prepend(div);document.getElementById('review-text').value='';}
 
-// Tabs
-function openTab(evt, tabName){
-const tablinks=document.getElementsByClassName('tablink');
-for(let t of tablinks) t.classList.remove('active');
-evt.currentTarget.classList.add('active');
-const tabcontent=document.getElementsByClassName('tabcontent');
-for(let t of tabcontent) t.classList.remove('active');
-document.getElementById(tabName).classList.add('active');
-}
+function openTab(evt, tabName){const tablinks=document.getElementsByClassName('tablink');for(let t of tablinks)t.classList.remove('active');evt.currentTarget.classList.add('active');const tabcontent=document.getElementsByClassName('tabcontent');for(let t of tabcontent)t.classList.remove('active');document.getElementById(tabName).classList.add('active');}
 
-// Basket
 function openBasket(){document.getElementById('basketModal').style.display='flex';}
 function closeBasket(){document.getElementById('basketModal').style.display='none';}
-function checkout(){
-if(cart.length===0){alert("Basket empty!"); return;}
-let total=cart.reduce((sum,p)=>sum+p.price,0);
-window.open("https://paypal.me/Keypurchase/"+total,"_blank");
-cart=[]; renderCart();
-closeBasket();
-document.getElementById('paymentModal').style.display='flex';
-}
-function closePayment(){document.getElementById('paymentModal').style.display='none';}
+function checkout(){if(cart.length===0){alert("Basket empty!");return;}let total=cart.reduce((sum,p)=>sum+p.price,0);window.open("https://paypal.me/Keypurchase/"+total,"_blank");cart=[];renderCart();closeBasket();}
 
-// Quick View
-function openQuick(i){
-document.getElementById('quick-img').src=products[i].img;
-document.getElementById('quick-title').textContent=products[i].name;
-document.getElementById('quick-price').textContent='$'+products[i].price;
-document.getElementById('quickView').style.display='flex';
-document.getElementById('quickView').querySelector('button').onclick=()=>{addToCart(i); closeQuick();}
-}
+function openQuick(i){document.getElementById('quick-img').src=products[i].img;document.getElementById('quick-title').textContent=products[i].name;document.getElementById('quick-price').textContent='$'+products[i].price;document.getElementById('quickView').style.display='flex';document.getElementById('quickView').querySelector('button').onclick=()=>{addToCart(i); closeQuick();}}
 function closeQuick(){document.getElementById('quickView').style.display='none';}
-
-// Add-to-cart animation
-function animateAddToCart(i){
-const productDiv=document.getElementsByClassName('product')[i];
-productDiv.style.transform='scale(1.05)';
-setTimeout(()=>{productDiv.style.transform='scale(1)';},200);
-}
+function animateAddToCart(i){const productDiv=document.getElementsByClassName('product')[i];productDiv.style.transform='scale(1.05)';setTimeout(()=>{productDiv.style.transform='scale(1)';},200);}
 
 renderProducts();
 </script>
