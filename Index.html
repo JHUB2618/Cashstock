@@ -11,7 +11,7 @@
       font-family:Arial,sans-serif; 
       overflow-x:hidden; 
       height:100%;
-      background:black; /* fallback */
+      background:black;
     }
 
     canvas#stars { 
@@ -165,7 +165,8 @@
   </div>
 
   <script>
-    const pfpUrl = "https://www.roblox.com/asset/?id=88844725838581";
+    // Roblox Thumbnail API image for all products
+    const pfpUrl = "https://www.roblox.com/thumbnail/image?assetId=88844725838581&width=150&height=150&format=png";
 
     const products = [
       { name:"5M PS2 Account", price:5, stock:5, img:pfpUrl },
@@ -237,6 +238,7 @@
 
     function closePayment(){ document.getElementById('paymentModal').style.display = 'none'; }
 
+    // Stars background
     const canvas = document.getElementById('stars');
     const ctx = canvas.getContext('2d');
     let w, h;
