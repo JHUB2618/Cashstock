@@ -3,79 +3,254 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JHUB Shop Pro - Professional</title>
+<title>JHUB Shop</title>
 <style>
-body, html { margin:0; padding:0; font-family:'Segoe UI',sans-serif; background:#0b0c10; color:#fff; overflow-x:hidden;}
-canvas#stars { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; }
+body, html {
+  margin:0;
+  padding:0;
+  font-family:'Segoe UI', sans-serif;
+  overflow-x:hidden;
+  background:#0b0c10;
+  color:#fff;
+}
+
+/* Animated Gradient Background */
+body::before {
+  content:"";
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: linear-gradient(270deg,#1e3c72,#2a5298,#1e3c72);
+  background-size: 600% 600%;
+  z-index:-2;
+  animation: GradientBG 20s ease infinite;
+}
+
+@keyframes GradientBG {
+  0% { background-position:0% 50%; }
+  50% { background-position:100% 50%; }
+  100% { background-position:0% 50%; }
+}
 
 /* Header & Hero */
-header { text-align:center; font-size:42px; font-weight:bold; padding:25px; color:#fff; text-shadow:2px 2px 12px #000; z-index:1; position:relative; }
-.hero { width:100%; height:200px; background:linear-gradient(90deg,#2196f3,#03a9f4); display:flex; justify-content:center; align-items:center; font-size:32px; font-weight:bold; color:#fff; margin-bottom:20px; border-radius:15px; text-shadow:1px 1px 5px #000; }
+header {
+  text-align:center;
+  font-size:42px;
+  font-weight:bold;
+  padding:30px;
+  color:#fff;
+  text-shadow:2px 2px 10px rgba(0,0,0,0.7);
+}
+.hero {
+  width:90%;
+  margin:0 auto 20px auto;
+  height:200px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.05);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:32px;
+  font-weight:bold;
+  color:#fff;
+  text-shadow:1px 1px 5px rgba(0,0,0,0.5);
+  transition:0.3s;
+}
 
 /* Tabs */
-.nav { display:flex; justify-content:center; gap:20px; margin-bottom:20px; z-index:1; position:relative; }
-.nav button { background:linear-gradient(45deg,#2196f3,#03a9f4); color:#fff; border:none; padding:12px 25px; cursor:pointer; border-radius:8px; font-size:16px; transition:0.3s;}
-.nav button:hover, .nav button.active { background:linear-gradient(45deg,#0288d1,#03a9f4); }
+.nav {
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin-bottom:20px;
+}
+.nav button {
+  background:linear-gradient(45deg,#03a9f4,#2196f3);
+  color:#fff;
+  border:none;
+  padding:12px 25px;
+  cursor:pointer;
+  border-radius:8px;
+  font-size:16px;
+  transition:0.3s;
+}
+.nav button:hover, .nav button.active {
+  background:linear-gradient(45deg,#0288d1,#03a9f4);
+}
 
 /* Tab Content */
-.tabcontent { display:none; padding:20px; max-width:1200px; margin:0 auto; z-index:1; position:relative; opacity:0; transition:opacity 0.5s ease; }
-.tabcontent.active { display:block; opacity:1; }
+.tabcontent {
+  display:none;
+  padding:20px;
+  max-width:1200px;
+  margin:0 auto;
+  opacity:0;
+  transition:opacity 0.5s ease;
+}
+.tabcontent.active {
+  display:block;
+  opacity:1;
+}
 
 /* Product Grid */
-.products { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:20px; }
-.product { background:rgba(255,255,255,0.05); border-radius:15px; padding:20px; text-align:center; transition:0.3s; box-shadow:0 5px 20px rgba(0,0,0,0.5); position:relative; cursor:pointer; }
-.product:hover { transform:translateY(-5px); box-shadow:0 10px 30px rgba(0,0,0,0.7); }
-
-/* Best Seller Highlight */
-.best-seller { border:2px solid #ff6f61; }
+.products {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:20px;
+}
+.product {
+  background:rgba(255,255,255,0.05);
+  border-radius:15px;
+  padding:20px;
+  text-align:center;
+  transition:0.3s;
+  box-shadow:0 5px 20px rgba(0,0,0,0.5);
+  position:relative;
+  cursor:pointer;
+}
+.product:hover {
+  transform:translateY(-5px);
+  box-shadow:0 10px 30px rgba(0,0,0,0.7);
+}
+.best-seller {
+  border:2px solid #ff6f61;
+}
 
 /* Product Image */
-.product img { width:100px; height:100px; border-radius:50%; margin-bottom:15px; object-fit:cover; transition:transform 0.3s; }
-.product:hover img { transform:scale(1.1); }
+.product img {
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  margin-bottom:15px;
+  object-fit:cover;
+  transition:transform 0.3s;
+}
+.product:hover img {
+  transform:scale(1.1);
+}
 
-/* Product Buttons */
-.product button { margin-top:10px; background:linear-gradient(45deg,#03a9f4,#2196f3); color:#fff; border:none; padding:12px 20px; width:100%; border-radius:8px; font-size:16px; cursor:pointer; transition:0.3s; }
-.product button:hover { background:linear-gradient(45deg,#0288d1,#03a9f4); }
+/* Buttons */
+.product button, #basketBtn {
+  margin-top:10px;
+  background:linear-gradient(45deg,#03a9f4,#2196f3);
+  color:#fff;
+  border:none;
+  padding:12px 20px;
+  width:100%;
+  border-radius:8px;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+}
+.product button:hover, #basketBtn:hover {
+  background:linear-gradient(45deg,#0288d1,#03a9f4);
+}
 
-/* Stock & Sold */
-.stock, .sold { font-size:14px; font-weight:bold; color:#ffeb3b; margin-top:5px; }
+/* Smaller, subtler messages */
+.stock, .sold {
+  font-size:12px;
+  font-weight:500;
+  color:#ffd700;
+  margin-top:3px;
+}
 
 /* Reviews */
-.reviews-list { max-height:400px; overflow-y:auto; margin-bottom:10px; border:1px solid #555; padding:10px; border-radius:8px; }
-.review-item { border-bottom:1px solid #555; padding:5px 0; display:flex; justify-content:space-between; align-items:center; }
-.star { color:#ffeb3b; margin-left:5px; }
+.reviews-list {
+  max-height:400px;
+  overflow-y:auto;
+  margin-bottom:10px;
+  border:1px solid #555;
+  padding:10px;
+  border-radius:8px;
+  font-size:13px;
+}
+.review-item {
+  border-bottom:1px solid #555;
+  padding:3px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
 /* Review Input */
-textarea { width:100%; height:60px; border-radius:6px; border:none; padding:10px; margin-bottom:10px; background:rgba(255,255,255,0.05); color:#fff; }
-.submit-review { background:linear-gradient(45deg,#2196f3,#03a9f4); color:white; border:none; padding:10px 20px; border-radius:6px; cursor:pointer; transition:0.3s; }
-.submit-review:hover { background:linear-gradient(45deg,#0288d1,#03a9f4); }
+textarea {
+  width:100%;
+  height:50px;
+  border-radius:6px;
+  border:none;
+  padding:8px;
+  margin-bottom:10px;
+  background:rgba(255,255,255,0.05);
+  color:#fff;
+  font-size:13px;
+}
+.submit-review {
+  background:linear-gradient(45deg,#2196f3,#03a9f4);
+  color:white;
+  border:none;
+  padding:8px 15px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:13px;
+  transition:0.3s;
+}
+.submit-review:hover {
+  background:linear-gradient(45deg,#0288d1,#03a9f4);
+}
 
 /* Terms of Service */
-.tos { max-height:400px; overflow-y:auto; border:1px solid #555; padding:10px; border-radius:8px; background:rgba(0,0,0,0.6); }
+.tos {
+  max-height:400px;
+  overflow-y:auto;
+  border:1px solid #555;
+  padding:8px;
+  border-radius:8px;
+  background:rgba(0,0,0,0.6);
+  font-size:13px;
+}
 
-/* Basket Modal */
-#basketBtn { display:block; margin:20px auto; background:linear-gradient(45deg,#2196f3,#03a9f4); color:#fff; border:none; padding:12px 20px; border-radius:8px; font-size:18px; cursor:pointer; z-index:1; }
-#basketBtn:hover { background:linear-gradient(45deg,#0288d1,#03a9f4); }
-
-.modal { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); display:none; justify-content:center; align-items:center; z-index:1000; }
-.modal-content { background:#111; color:#fff; padding:20px; border-radius:12px; max-width:500px; width:90%; text-align:center; box-shadow:0 0 25px rgba(255,255,255,0.3); }
-.modal-content button { margin-top:15px; padding:10px 15px; background:linear-gradient(45deg,#2196f3,#03a9f4); color:#fff; border:none; border-radius:6px; cursor:pointer; transition:0.3s; }
-.modal-content button:hover { background:linear-gradient(45deg,#0288d1,#03a9f4); }
-.modal-content a { color:#03a9f4; text-decoration:none; }
-
-/* Quick View Modal */
-.quick-view-modal { position:fixed; top:0; left:0; width:100%; height:100%; display:none; justify-content:center; align-items:center; background:rgba(0,0,0,0.95); z-index:2000; }
-.quick-view-content { background:#111; padding:25px; border-radius:15px; max-width:400px; width:90%; text-align:center; box-shadow:0 0 25px rgba(255,255,255,0.3); }
-.quick-view-content img { width:150px; height:150px; border-radius:12px; margin-bottom:15px; }
+/* Modals */
+.modal, .quick-view-modal {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  background:rgba(0,0,0,0.95);
+  z-index:1000;
+}
+.modal-content, .quick-view-content {
+  background:#111;
+  color:#fff;
+  padding:15px;
+  border-radius:15px;
+  max-width:400px;
+  width:90%;
+  text-align:center;
+  box-shadow:0 0 25px rgba(255,255,255,0.3);
+  font-size:14px;
+}
+.quick-view-content img {
+  width:150px;
+  height:150px;
+  border-radius:12px;
+  margin-bottom:10px;
+}
 
 /* Responsive */
-@media(max-width:600px){ .products{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));} header{font-size:30px;} .hero{font-size:24px;} }
+@media(max-width:600px){
+  .products{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));}
+  header{font-size:30px;}
+  .hero{font-size:24px;}
+}
 </style>
 </head>
 <body>
 
-<canvas id="stars"></canvas>
-<header>JHUB Shop Pro</header>
+<header>JHUB Shop</header>
 <div class="hero">🔥 Featured Deals 🔥</div>
 
 <div class="nav">
@@ -98,12 +273,11 @@ textarea { width:100%; height:60px; border-radius:6px; border:none; padding:10px
 <div id="TOS" class="tabcontent">
 <div class="tos">
 <h3>Terms of Service</h3>
-<p>All sales are final. Please verify all details before purchase. Join Discord and create a ticket with proof of payment to receive your account.</p>
-<p>Misuse of accounts may result in permanent bans.</p>
+<p>All sales are final. Verify details before purchase. Join our Discord and create a ticket with proof of payment to receive your account.</p>
+<p>Misuse may result in permanent bans.</p>
 </div>
 </div>
 
-<!-- Basket Modal -->
 <div id="basketModal" class="modal">
 <div class="modal-content">
 <h2>Your Basket</h2>
@@ -114,16 +288,14 @@ textarea { width:100%; height:60px; border-radius:6px; border:none; padding:10px
 </div>
 </div>
 
-<!-- Payment Modal -->
 <div id="paymentModal" class="modal">
 <div class="modal-content">
 <h2>Payment Pending</h2>
-<p>After completing PayPal checkout, please <a href="https://discord.gg/VNNrm64j" target="_blank">join our Discord</a> and create a ticket with proof of purchase.</p>
+<p>After PayPal checkout, join our Discord and create a ticket with proof to receive your account.</p>
 <button onclick="closePayment()">Close</button>
 </div>
 </div>
 
-<!-- Quick View Modal -->
 <div id="quickView" class="quick-view-modal">
 <div class="quick-view-content">
 <img id="quick-img" src="" alt="">
@@ -134,10 +306,8 @@ textarea { width:100%; height:60px; border-radius:6px; border:none; padding:10px
 </div>
 
 <script>
-// Roblox image
+// Roblox thumbnail
 const pfpUrl = "https://www.roblox.com/thumbnail/image?assetId=88844725838581&width=150&height=150&format=png";
-
-// Products
 const products = [
 {name:"5M PS2 Account", price:5, stock:5, sold:0, img:pfpUrl},
 {name:"10M PS2 Account", price:8, stock:3, sold:0, img:pfpUrl},
@@ -222,7 +392,7 @@ for(let t of tabcontent) t.classList.remove('active');
 document.getElementById(tabName).classList.add('active');
 }
 
-// Basket modal
+// Basket
 function openBasket(){document.getElementById('basketModal').style.display='flex';}
 function closeBasket(){document.getElementById('basketModal').style.display='none';}
 function checkout(){
@@ -235,7 +405,7 @@ document.getElementById('paymentModal').style.display='flex';
 }
 function closePayment(){document.getElementById('paymentModal').style.display='none';}
 
-// Quick view
+// Quick View
 function openQuick(i){
 document.getElementById('quick-img').src=products[i].img;
 document.getElementById('quick-title').textContent=products[i].name;
@@ -251,17 +421,6 @@ const productDiv=document.getElementsByClassName('product')[i];
 productDiv.style.transform='scale(1.05)';
 setTimeout(()=>{productDiv.style.transform='scale(1)';},200);
 }
-
-// Stars background
-const canvas=document.getElementById('stars');
-const ctx=canvas.getContext('2d');
-let w,h;
-function resize(){w=canvas.width=window.innerWidth; h=canvas.height=window.innerHeight;}
-window.addEventListener('resize',resize); resize();
-const stars=[];
-for(let i=0;i<500;i++){stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2,speed:Math.random()*1+0.2});}
-function animateStars(){ctx.clearRect(0,0,w,h);stars.forEach(s=>{s.x+=s.speed;if(s.x>w){s.x=0;s.y=Math.random()*h;s.r=Math.random()*2;s.speed=Math.random()*1+0.2;}ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='white';ctx.fill();});requestAnimationFrame(animateStars);}
-animateStars();
 
 renderProducts();
 </script>
