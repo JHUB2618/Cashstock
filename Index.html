@@ -22,8 +22,21 @@ nav button:hover,nav button.active{background:linear-gradient(45deg,#555,#777);c
 .product{background:#1e1e1e;padding:15px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.5);transition:.3s;}
 .product:hover{transform:translateY(-5px);box-shadow:0 6px 20px rgba(0,0,0,.8);border:1px solid #777;}
 .product h3,p,button{margin:5px 0;}
-.product button{background:linear-gradient(45deg,#555,#777);border:none;color:#fff;padding:10px;width:100%;border-radius:6px;cursor:pointer;transition:.3s;}
-.product button:hover{background:linear-gradient(45deg,#777,#999);box-shadow:0 0 8px rgba(255,255,255,.5);}
+.product button, #basketBtn {
+    background: linear-gradient(45deg,#555,#777);
+    border: none;
+    color: #fff;
+    padding: 8px 10px;
+    width: 90%;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .3s;
+}
+.product button:hover, #basketBtn:hover {
+    background: linear-gradient(45deg,#777,#999);
+    box-shadow: 0 0 6px rgba(255,255,255,.5);
+}
 .modal{position:fixed;top:0;left:0;width:100%;height:100%;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,.95);z-index:1000;}
 .modal-content{background:#222;padding:20px;border-radius:12px;width:90%;max-width:400px;text-align:center;box-shadow:0 0 25px rgba(255,255,255,.2);}
 textarea{width:100%;height:50px;background:#1e1e1e;border:none;border-radius:6px;color:#fff;padding:8px;margin-bottom:8px;font-size:13px;}
@@ -32,9 +45,9 @@ textarea{width:100%;height:50px;background:#1e1e1e;border:none;border-radius:6px
 .reviews-list{max-height:250px;overflow-y:auto;border:1px solid #444;padding:10px;border-radius:6px;margin-bottom:10px;}
 .tos{max-height:300px;overflow-y:auto;background:#1e1e1e;border-radius:8px;padding:8px;font-size:13px;}
 
-/* MOBILE HAMBURGER */
-@media(max-width:800px){
-  .menu-btn{display:flex;}
+/* Hamburger menu for mobile */
+@media(max-width:900px){
+  .menu-btn{display:flex;z-index:1010;}
   nav{display:none;flex-direction:column;background:rgba(20,20,20,.95);position:absolute;top:60px;right:10px;width:200px;padding:10px;border-radius:6px;z-index:1000;}
   nav.active{display:flex;}
 }
@@ -99,21 +112,9 @@ textarea{width:100%;height:50px;background:#1e1e1e;border:none;border-radius:6px
 function toggleMenu(){document.querySelector('nav').classList.toggle('active');}
 
 // Products
-const tb3Products=[
-{name:"990K",price:3,stock:5,sold:0},
-{name:"1.8M",price:4,stock:4,sold:0},
-{name:"3M",price:6,stock:2,sold:0}
-];
-const ps2Products=[
-{name:"5M",price:5,stock:5,sold:0},
-{name:"10M",price:8,stock:3,sold:0},
-{name:"InfCash",price:12,stock:2,sold:0}
-];
-const keysProducts=[
-{name:"7 Days",price:4,stock:10,sold:0},
-{name:"1 Month",price:7,stock:5,sold:0},
-{name:"LifeTime",price:20,stock:1,sold:0}
-];
+const tb3Products=[{name:"990K",price:3,stock:5,sold:0},{name:"1.8M",price:4,stock:4,sold:0},{name:"3M",price:6,stock:2,sold:0}];
+const ps2Products=[{name:"5M",price:5,stock:5,sold:0},{name:"10M",price:8,stock:3,sold:0},{name:"InfCash",price:12,stock:2,sold:0}];
+const keysProducts=[{name:"7 Days",price:4,stock:10,sold:0},{name:"1 Month",price:7,stock:5,sold:0},{name:"LifeTime",price:20,stock:1,sold:0}];
 let cart=[];
 
 // Render section
