@@ -137,9 +137,9 @@
 
 <script>
 const products = [
-  { name:"5M Account", price:5, stock:5 },
-  { name:"10M Account", price:8, stock:3 },
-  { name:"Inf Cash Account", price:13, stock:2 }
+  { name:"5M PS2 Account", price:5, stock:5 },
+  { name:"10M PS2 Account", price:8, stock:3 },
+  { name:"Inf Cash PS2 Account", price:13, stock:2 }
 ];
 
 let cart=[];
@@ -149,11 +149,11 @@ function renderProducts(){
   productContainer.innerHTML='';
   products.forEach((p,i)=>{
     let disabled = p.stock<=0 ? "disabled" : "";
-    let btnText = p.stock<=0 ? "Sold Out" : "Add to Basket";
+    let btnText = p.stock<=0 ? "Sold Out" : `Buy ${p.name} ($${p.price})`;
     const div=document.createElement('div');
     div.className='product';
     div.innerHTML=`
-      <h3>${p.name} ($${p.price})</h3>
+      <h3>${p.name}</h3>
       <div class="stock">Stock: ${p.stock}</div>
       <button ${disabled} onclick="addToCart(${i})">${btnText}</button>
     `;
