@@ -1,217 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JHUB Shop</title>
-<style>
-  body, html {
-    margin:0;
-    padding:0;
-    font-family: Arial,sans-serif;
-    background:black;
-    overflow-x:hidden;
-  }
-  canvas#stars {
-    position: fixed;
-    top:0;left:0;
-    width:100%;height:100%;
-    z-index:-1;
-  }
-  header {
-    text-align:center;
-    padding:25px;
-    font-size:30px;
-    font-weight:bold;
-    color:#fff;
-    text-shadow:2px 2px 8px #000;
-  }
-  #basketBtn {
-    display:block;
-    margin:0 auto 20px auto;
-    background:#ff9800;
-    color:white;
-    border:none;
-    padding:12px 20px;
-    border-radius:8px;
-    font-size:18px;
-    cursor:pointer;
-  }
-  #basketBtn:hover { background:#e68900; }
-  .products {
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:20px;
-    padding:10px;
-  }
-  .product {
-    background:rgba(0,0,0,0.7);
-    border:1px solid rgba(255,255,255,0.1);
-    border-radius:12px;
-    width:220px;
-    padding:20px;
-    text-align:center;
-    box-shadow:0 0 15px rgba(255,255,255,0.2);
-  }
-  .product button {
-    margin-top:10px;
-    background:#03a9f4;
-    color:white;
-    border:none;
-    padding:15px;
-    width:100%;
-    border-radius:8px;
-    font-size:16px;
-    cursor:pointer;
-  }
-  .product button:hover { background:#0288d1; }
-  .stock {
-    margin-top:8px;
-    font-weight:bold;
-    color:#ffeb3b;
-    font-size:15px;
-  }
-  /* Modal general */
-  .modal {
-    position:fixed;
-    top:0;left:0;
-    width:100%;height:100%;
-    background:rgba(0,0,0,0.9);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:1000;
-  }
-  .modal-content {
-    background:#111;
-    color:white;
-    padding:20px;
-    border-radius:12px;
-    max-width:400px;
-    width:90%;
-    text-align:center;
-    box-shadow:0 0 20px rgba(255,255,255,0.3);
-  }
-  .modal-content button {
-    margin-top:15px;
-    padding:10px 15px;
-    background:#03a9f4;
-    color:white;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
-  }
-  .modal-content button:hover { background:#0288d1; }
-</style>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JHUB Shop</title>
+  <style>
+    body, html { margin:0; padding:0; font-family:Arial,sans-serif; background:black; overflow-x:hidden; }
+    canvas#stars { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; }
+    header { text-align:center; padding:25px; font-size:30px; font-weight:bold; color:#fff; text-shadow:2px 2px 8px #000; }
+    #basketBtn { display:block; margin:0 auto 20px; background:#ff9800; color:#fff; border:none; padding:12px 20px; border-radius:8px; font-size:18px; cursor:pointer; }
+    #basketBtn:hover { background:#e68900; }
+    .products { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; padding:10px; }
+    .product { background:rgba(0,0,0,0.7); border:1px solid rgba(255,255,255,0.1); border-radius:12px; width:220px; padding:20px; text-align:center; box-shadow:0 0 15px rgba(255,255,255,0.2); }
+    .product img { width:100px; height:100px; border-radius:50%; margin-bottom:10px; }
+    .product button { margin-top:10px; background:#03a9f4; color:#fff; border:none; padding:15px; width:100%; border-radius:8px; font-size:16px; cursor:pointer; }
+    .product button:hover { background:#0288d1; }
+    .stock { margin-top:8px; font-weight:bold; color:#ffeb3b; font-size:15px; }
+    .modal { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:none; justify-content:center; align-items:center; z-index:1000; }
+    .modal-content { background:#111; color:#fff; padding:20px; border-radius:12px; max-width:400px; width:90%; text-align:center; box-shadow:0 0 20px rgba(255,255,255,0.3); }
+    .modal-content button { margin-top:15px; padding:10px 15px; background:#03a9f4; color:#fff; border:none; border-radius:6px; cursor:pointer; }
+    .modal-content button:hover { background:#0288d1; }
+  </style>
 </head>
 <body>
-<canvas id="stars"></canvas>
+  <canvas id="stars"></canvas>
+  <header>JHUB Shop</header>
+  <button id="basketBtn" onclick="openBasket()">🛒 Check Basket</button>
+  <div class="products" id="products"></div>
 
-<header>JHUB Shop</header>
-<button id="basketBtn" onclick="openBasket()">🛒 Check Basket</button>
-
-<div class="products" id="products"></div>
-
-<!-- Basket Modal -->
-<div id="basketModal" class="modal">
-  <div class="modal-content">
-    <h2>Your Basket</h2>
-    <ul id="cart-items"></ul>
-    <p>Total: $<span id="total">0</span></p>
-    <button onclick="checkout()">Checkout with PayPal</button><br>
-    <button onclick="closeBasket()">Close</button>
+  <div id="basketModal" class="modal">
+    <div class="modal-content">
+      <h2>Your Basket</h2>
+      <ul id="cart-items"></ul>
+      <p>Total: $<span id="total">0</span></p>
+      <button onclick="checkout()">Checkout with PayPal</button><br>
+      <button onclick="closeBasket()">Close</button>
+    </div>
   </div>
-</div>
 
-<!-- Payment Modal -->
-<div id="paymentModal" class="modal">
-  <div class="modal-content">
-    <h2>Payment Pending</h2>
-    <p>After completing PayPal checkout, please 
-    <a href="https://discord.gg/VNNrm64j" target="_blank" style="color:#03a9f4;">join our Discord</a> 
-    and <strong>create a ticket with purchase proof</strong> to receive your account.</p>
-    <button onclick="closePayment()">Close</button>
+  <div id="paymentModal" class="modal">
+    <div class="modal-content">
+      <h2>Payment Pending</h2>
+      <p>After completing PayPal checkout, please
+      <a href="https://discord.gg/VNNrm64j" target="_blank" style="color:#03a9f4;">join our Discord</a>
+      and <strong>create a ticket with purchase proof</strong> to receive your account.</p>
+      <button onclick="closePayment()">Close</button>
+    </div>
   </div>
-</div>
 
-<script>
-const products = [
-  { name:"5M PS2 Account", price:5, stock:5 },
-  { name:"10M PS2 Account", price:8, stock:3 },
-  { name:"Inf Cash PS2 Account", price:13, stock:2 }
-];
+  <script>
+    const pfpUrl = "https://imgur.com/gallery/yeh-KNpjeFF#Rx1vxiY"; // Replace with direct Imgur image URL
 
-let cart=[];
-const productContainer=document.getElementById('products');
+    const products = [
+      { name:"5M PS2 Account", price:5, stock:5, img:pfpUrl },
+      { name:"10M PS2 Account", price:8, stock:3, img:pfpUrl },
+      { name:"Inf Cash PS2 Account", price:13, stock:2, img:pfpUrl }
+    ];
 
-function renderProducts(){
-  productContainer.innerHTML='';
-  products.forEach((p,i)=>{
-    let disabled = p.stock<=0 ? "disabled" : "";
-    let btnText = p.stock<=0 ? "Sold Out" : `Buy ${p.name} ($${p.price})`;
-    const div=document.createElement('div');
-    div.className='product';
-    div.innerHTML=`
-      <h3>${p.name}</h3>
-      <div class="stock">Stock: ${p.stock}</div>
-      <button ${disabled} onclick="addToCart(${i})">${btnText}</button>
-    `;
-    productContainer.appendChild(div);
-  });
-}
+    let cart = [];
+    const productContainer = document.getElementById('products');
 
-function addToCart(i){
-  if(products[i].stock<=0) return;
-  cart.push(products[i]);
-  products[i].stock--;
-  renderProducts();
-  renderCart();
-}
+    function renderProducts(){
+      productContainer.innerHTML = '';
+      products.forEach((p, i) => {
+        let disabled = p.stock <= 0 ? "disabled" : "";
+        let btnText = p.stock <= 0 ? "Sold Out" : `Buy ${p.name} ($${p.price})`;
+        const div = document.createElement('div');
+        div.className = 'product';
+        div.innerHTML = `
+          <img src="${p.img}" alt="${p.name}">
+          <h3>${p.name}</h3>
+          <div class="stock">Stock: ${p.stock}</div>
+          <button ${disabled} onclick="addToCart(${i})">${btnText}</button>
+        `;
+        productContainer.appendChild(div);
+      });
+    }
 
-function renderCart(){
-  const list=document.getElementById('cart-items');
-  const totalEl=document.getElementById('total');
-  list.innerHTML='';
-  let total=0;
-  cart.forEach((item,idx)=>{
-    const li=document.createElement('li');
-    li.textContent=`${item.name} - $${item.price}`;
-    li.style.cursor='pointer';
-    li.onclick=()=>{
-      cart.splice(idx,1);
-      const pIndex=products.findIndex(p=>p.name===item.name);
-      products[pIndex].stock++;
-      renderProducts(); renderCart();
-    };
-    list.appendChild(li);
-    total+=item.price;
-  });
-  totalEl.textContent=total.toFixed(2);
-}
+    function addToCart(i){
+      if (products[i].stock <= 0) return;
+      cart.push(products[i]);
+      products[i].stock--;
+      renderProducts();
+      renderCart();
+    }
 
-function openBasket(){ document.getElementById('basketModal').style.display='flex'; }
-function closeBasket(){ document.getElementById('basketModal').style.display='none'; }
+    function renderCart(){
+      const list = document.getElementById('cart-items');
+      const totalEl = document.getElementById('total');
+      list.innerHTML = '';
+      let total = 0;
+      cart.forEach((item, idx) => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - $${item.price}`;
+        li.style.cursor = 'pointer';
+        li.onclick = () => {
+          cart.splice(idx, 1);
+          const pIndex = products.findIndex(p => p.name === item.name);
+          products[pIndex].stock++;
+          renderProducts();
+          renderCart();
+        };
+        list.appendChild(li);
+        total += item.price;
+      });
+      totalEl.textContent = total.toFixed(2);
+    }
 
-function checkout(){
-  if(cart.length===0){alert("Basket empty!");return;}
-  let total=cart.reduce((sum,p)=>sum+p.price,0);
-  window.open("https://paypal.me/Keypurchase/"+total,"_blank");
-  cart=[]; renderCart();
-  closeBasket();
-  document.getElementById('paymentModal').style.display='flex';
-}
+    function openBasket(){ document.getElementById('basketModal').style.display = 'flex'; }
+    function closeBasket(){ document.getElementById('basketModal').style.display = 'none'; }
 
-function closePayment(){ document.getElementById('paymentModal').style.display='none'; }
+    function checkout(){
+      if (cart.length === 0) { alert("Basket empty!"); return; }
+      let total = cart.reduce((sum, p) => sum + p.price, 0);
+      window.open("https://paypal.me/Keypurchase/" + total, "_blank");
+      cart = []; renderCart();
+      closeBasket();
+      document.getElementById('paymentModal').style.display = 'flex';
+    }
 
-// Stars background
-const canvas=document.getElementById('stars'),ctx=canvas.getContext('2d');
-let w,h; function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;}
-window.addEventListener('resize',resize); resize();
-const stars=[]; for(let i=0;i<150;i++){stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.5,speed:Math.random()*0.5+0.1});}
-function animateStars(){ctx.clearRect(0,0,w,h);stars.forEach(s=>{s.x+=s.speed;if(s.x>w){s.x=0;s.y=Math.random()*h;}ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='white';ctx.fill();});requestAnimationFrame(animateStars);}
-animateStars();
-renderProducts();
-</script>
+    function closePayment(){ document.getElementById('paymentModal').style.display = 'none'; }
+
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let w, h;
+    function resize(){ w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+    const stars = [];
+    for (let i = 0; i < 150; i++) stars.push({ x: Math.random()*w, y: Math.random()*h, r: Math.random()*1.5, speed: Math.random()*0.5+0.1 });
+    function animateStars(){
+      ctx.clearRect(0,0,w,h);
+      stars.forEach(s => {
+        s.x += s.speed;
+        if (s.x > w){ s.x = 0; s.y = Math.random()*h; }
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+        ctx.fillStyle = 'white';
+        ctx.fill();
+      });
+      requestAnimationFrame(animateStars);
+    }
+    animateStars();
+    renderProducts();
+  </script>
 </body>
 </html>
