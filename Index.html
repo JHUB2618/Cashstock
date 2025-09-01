@@ -5,246 +5,223 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JHUB Shop</title>
 <style>
-body,html{
-  margin:0;
-  padding:0;
-  font-family:'Segoe UI',sans-serif;
-  background:#111;
-  color:#fff;
+/* Global */
+body,html {
+  margin:0; padding:0;
+  font-family:'Inter','Segoe UI',sans-serif;
+  background:#0f0f0f;
+  color:#f1f1f1;
   overflow-x:hidden;
 }
-canvas#bgCanvas{
-  position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
-  z-index:-1;
-}
-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:10px 18px;
-  background:rgba(20,20,20,0.95);
-  position:fixed;
-  width:100%;
+a { color:inherit; text-decoration:none; }
+
+/* Header */
+header {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:14px 20px;
+  background:#111;
+  position:fixed; top:0; left:0; right:0;
   z-index:1000;
-  box-shadow:0 1px 6px rgba(0,0,0,.5);
+  border-bottom:1px solid #222;
 }
-header h1{
-  font-size:22px;
-  font-weight:600;
-  margin:0;
+header h1 {
+  font-size:20px; margin:0; font-weight:600;
 }
-.menu-btn{
+header .actions {
+  display:flex; gap:12px; align-items:center;
+}
+header .actions button {
+  padding:6px 12px;
+  font-size:14px;
+  border:none;
+  border-radius:6px;
+  background:#fff; color:#000;
+  cursor:pointer;
+  transition:background .2s;
+}
+header .actions button:hover { background:#e2e2e2; }
+
+/* Hamburger */
+.menu-btn {
   display:none;
   flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  width:34px; height:34px;
   cursor:pointer;
-  z-index:1010;
+  border-radius:6px;
+  background:rgba(255,255,255,0.08);
 }
-.menu-btn div{
-  width:22px;
-  height:2px;
+.menu-btn div {
+  width:20px; height:2px;
   background:#fff;
-  margin:4px 0;
-  transition:.4s;
+  margin:3px 0;
+  border-radius:1px;
+  transition:transform .3s, opacity .3s;
 }
-nav{
-  display:flex;
-  gap:12px;
+.menu-btn.open div:nth-child(1) { transform:translateY(5px) rotate(45deg); }
+.menu-btn.open div:nth-child(2) { opacity:0; }
+.menu-btn.open div:nth-child(3) { transform:translateY(-5px) rotate(-45deg); }
+
+/* Slide menu (mobile) */
+.mobile-menu {
+  position:fixed; top:0; right:-240px;
+  width:200px; height:100%;
+  background:#181818;
+  padding:60px 20px;
+  transition:right .3s;
+  z-index:999;
 }
-nav button{
-  background:none;
-  border:none;
-  color:#fff;
-  font-size:14px;
-  cursor:pointer;
-  padding:6px 10px;
-  border-radius:4px;
-  transition:.3s;
-}
-nav button:hover,nav button.active{
-  background:linear-gradient(45deg,#444,#666);
-  color:#fff;
-  box-shadow:0 0 6px rgba(255,255,255,.4);
-}
-.tabcontent{
-  display:none;
-  padding:80px 16px 20px 16px;
-  max-width:1100px;
-  margin:0 auto;
-}
-.tabcontent.active{display:block;}
-.section-title{
-  font-size:18px;
-  margin:16px 0 8px 0;
-  border-bottom:1px solid #333;
-  padding-bottom:4px;
-  color:#ccc;
-}
-.products{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-  gap:16px;
-  margin-bottom:25px;
-}
-.product{
-  background:#1b1b1b;
-  padding:12px;
-  border-radius:8px;
-  box-shadow:0 2px 8px rgba(0,0,0,.4);
-  transition:.2s;
-  font-size:14px;
-}
-.product:hover{
-  transform:translateY(-3px);
-  box-shadow:0 4px 14px rgba(0,0,0,.6);
-  border:1px solid #666;
-}
-.product h3{
-  margin:0 0 4px 0;
+.mobile-menu.open { right:0; }
+.mobile-menu button {
+  display:block; width:100%;
+  background:none; border:none;
+  padding:12px 0;
   font-size:15px;
+  text-align:left;
+  color:#f1f1f1;
+  cursor:pointer;
 }
-.product p{margin:2px 0;}
-.product button{
-  background:linear-gradient(45deg,#444,#666);
-  border:none;
-  color:#fff;
-  padding:6px;
+.mobile-menu button:hover { color:#ddd; }
+
+/* Content */
+main {
+  max-width:1000px;
+  margin:100px auto 40px auto;
+  padding:0 20px;
+}
+.section-title {
+  font-size:18px; font-weight:500;
+  margin:30px 0 16px 0;
+  border-bottom:1px solid #222;
+  padding-bottom:6px;
+}
+.products {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:20px;
+}
+.product {
+  background:#1a1a1a;
+  border:1px solid #222;
+  border-radius:8px;
+  padding:16px;
+  transition:transform .2s, box-shadow .2s;
+}
+.product:hover {
+  transform:translateY(-3px);
+  box-shadow:0 4px 12px rgba(0,0,0,.5);
+}
+.product h3 { margin:0 0 8px 0; font-size:16px; }
+.product p { margin:4px 0; font-size:14px; color:#aaa; }
+.product button {
+  margin-top:10px;
   width:100%;
-  border-radius:4px;
-  cursor:pointer;
-  font-size:13px;
-  transition:.3s;
-}
-.product button:hover{
-  background:linear-gradient(45deg,#666,#888);
-  box-shadow:0 0 6px rgba(255,255,255,.3);
-}
-#basketBtn{
-  margin-bottom:16px;
-  padding:6px 12px;
-  font-size:13px;
+  padding:8px;
   border:none;
-  border-radius:4px;
+  border-radius:6px;
+  font-size:14px;
+  background:#fff; color:#000;
   cursor:pointer;
-  background:linear-gradient(45deg,#444,#666);
-  color:#fff;
+  transition:background .2s;
 }
-#basketBtn:hover{background:linear-gradient(45deg,#666,#888);}
-.modal{
-  position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
+.product button:hover { background:#e2e2e2; }
+
+/* Basket modal */
+.modal {
+  position:fixed; inset:0;
   display:none;
   justify-content:center;
   align-items:center;
-  background:rgba(0,0,0,.9);
-  z-index:1000;
+  background:rgba(0,0,0,.7);
+  z-index:1001;
 }
-.modal-content{
-  background:#222;
-  padding:16px;
+.modal-content {
+  background:#1a1a1a;
   border-radius:8px;
-  width:90%;max-width:380px;
+  padding:20px;
+  width:90%; max-width:380px;
   text-align:center;
   font-size:14px;
 }
-textarea{
-  width:100%;
-  height:50px;
-  background:#1a1a1a;
-  border:none;
-  border-radius:6px;
-  color:#fff;
-  padding:8px;
-  margin:8px 0;
-  font-size:13px;
-}
-.submit-review{
-  background:linear-gradient(45deg,#444,#666);
-  color:#fff;
-  border:none;
-  padding:6px 10px;
-  border-radius:4px;
-  cursor:pointer;
-  font-size:13px;
-}
-.submit-review:hover{
-  background:linear-gradient(45deg,#666,#888);
-}
-.reviews-list{
+.modal-content h3 { margin-top:0; }
+
+/* Reviews */
+.reviews-list {
   max-height:220px;
   overflow-y:auto;
-  border:1px solid #333;
-  padding:8px;
-  border-radius:6px;
-  margin-bottom:8px;
-  font-size:13px;
-}
-.tos{
-  max-height:260px;
-  overflow-y:auto;
-  background:#1a1a1a;
-  border-radius:6px;
+  border:1px solid #222;
   padding:10px;
-  font-size:13px;
-  line-height:1.5;
+  border-radius:6px;
+  margin-bottom:10px;
+  font-size:14px;
 }
-/* Mobile */
+textarea {
+  width:100%;
+  background:#111;
+  border:1px solid #222;
+  border-radius:6px;
+  color:#fff;
+  padding:8px;
+  font-size:14px;
+  margin-bottom:10px;
+}
+.submit-review {
+  padding:8px 12px;
+  background:#fff; color:#000;
+  border:none; border-radius:6px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+/* Responsive */
 @media(max-width:800px){
-  .menu-btn{display:flex;}
-  nav{
-    display:none;
-    flex-direction:column;
-    background:rgba(20,20,20,.95);
-    position:absolute;
-    top:50px;right:10px;
-    width:160px;
-    padding:8px;
-    border-radius:6px;
-  }
-  nav.active{display:flex;}
+  nav { display:none; }
+  .menu-btn { display:flex; }
 }
 </style>
 </head>
 <body>
-<canvas id="bgCanvas"></canvas>
-
 <header>
   <h1>JHUB</h1>
-  <div class="menu-btn" onclick="toggleMenu()">
-    <div></div><div></div><div></div>
+  <div class="actions">
+    <button onclick="openBasket()">🛒 Basket</button>
+    <div class="menu-btn" onclick="toggleMobileMenu()">
+      <div></div><div></div><div></div>
+    </div>
   </div>
-  <nav>
-    <button class="tablink active" onclick="openTab(event,'Products')">Products</button>
-    <button class="tablink" onclick="openTab(event,'Reviews')">Reviews</button>
-    <button class="tablink" onclick="openTab(event,'TOS')">TOS</button>
-  </nav>
 </header>
 
-<div id="Products" class="tabcontent active">
-  <button id="basketBtn" onclick="openBasket()">🛒 Basket</button>
-  <div class="section-title">TB3</div>
-  <div class="products" id="tb3-products"></div>
-  <div class="section-title">PS2</div>
-  <div class="products" id="ps2-products"></div>
-  <div class="section-title">Keys</div>
-  <div class="products" id="keys-products"></div>
+<!-- Mobile nav -->
+<div class="mobile-menu" id="mobileMenu">
+  <button onclick="openTab(event,'Products')">Products</button>
+  <button onclick="openTab(event,'Reviews')">Reviews</button>
+  <button onclick="openTab(event,'TOS')">TOS</button>
 </div>
 
-<div id="Reviews" class="tabcontent">
-  <div class="reviews-list" id="reviews-list"></div>
-  <textarea id="review-text" placeholder="Write your review..."></textarea>
-  <button class="submit-review" onclick="addReview()">Submit Review</button>
-</div>
+<main>
+  <div id="Products" class="tabcontent active">
+    <div class="section-title">TB3</div>
+    <div class="products" id="tb3-products"></div>
+    <div class="section-title">PS2</div>
+    <div class="products" id="ps2-products"></div>
+    <div class="section-title">Keys</div>
+    <div class="products" id="keys-products"></div>
+  </div>
 
-<div id="TOS" class="tabcontent">
-  <div class="tos">
-    <h3>Terms of Service</h3>
+  <div id="Reviews" class="tabcontent" style="display:none;">
+    <div class="reviews-list" id="reviews-list"></div>
+    <textarea id="review-text" placeholder="Write your review..."></textarea>
+    <button class="submit-review" onclick="addReview()">Submit Review</button>
+  </div>
+
+  <div id="TOS" class="tabcontent" style="display:none;">
+    <div class="section-title">Terms of Service</div>
     <p>All sales are final. Join our Discord and create a ticket with proof to receive your account.</p>
   </div>
-</div>
+</main>
 
+<!-- Basket Modal -->
 <div id="basketModal" class="modal">
   <div class="modal-content">
     <h3>Your Basket</h3>
@@ -256,19 +233,30 @@ textarea{
 </div>
 
 <script>
-// (same JS as before, unchanged)
-function toggleMenu(){document.querySelector('nav').classList.toggle('active');}
+function toggleMobileMenu(){
+  document.querySelector('.menu-btn').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+// Tabs
+function openTab(evt,name){
+  document.querySelectorAll('.tabcontent').forEach(c=>c.style.display='none');
+  document.getElementById(name).style.display='block';
+}
+// Products
 const tb3Products=[{name:"990K",price:3,stock:5,sold:0},{name:"1.8M",price:4,stock:4,sold:0},{name:"3M",price:6,stock:2,sold:0}];
 const ps2Products=[{name:"5M",price:5,stock:5,sold:0},{name:"10M",price:8,stock:3,sold:0},{name:"InfCash",price:12,stock:2,sold:0}];
 const keysProducts=[{name:"7 Days",price:4,stock:10,sold:0},{name:"1 Month",price:7,stock:5,sold:0},{name:"LifeTime",price:20,stock:1,sold:0}];
 let cart=[];
 function renderSection(sectionArray,containerId){
-  const container=document.getElementById(containerId);container.innerHTML='';
+  const c=document.getElementById(containerId); c.innerHTML='';
   sectionArray.forEach((p,i)=>{
     const div=document.createElement('div');div.className='product';
-    div.innerHTML=`<h3>${p.name}</h3><p>$${p.price}</p><p>Stock: ${p.stock}</p><p>Sold: ${p.sold}</p>
-    <button ${p.stock<=0?'disabled':''} onclick="addToCart(${i},'${containerId}')">${p.stock<=0?'Sold Out':'Add'}</button>`;
-    container.appendChild(div);
+    div.innerHTML=`<h3>${p.name}</h3>
+    <p>$${p.price}</p>
+    <p>Stock: ${p.stock}</p>
+    <button ${p.stock<=0?'disabled':''} onclick="addToCart(${i},'${containerId}')">
+    ${p.stock<=0?'Sold Out':'Add to Basket'}</button>`;
+    c.appendChild(div);
   });
 }
 function addToCart(i,section){
@@ -278,21 +266,22 @@ function addToCart(i,section){
   else if(section==='keys-products') product=keysProducts[i];
   if(product.stock>0){cart.push(product);product.stock--;product.sold++;renderAll();renderCart();}
 }
-function renderAll(){renderSection(tb3Products,'tb3-products');renderSection(ps2Products,'ps2-products');renderSection(keysProducts,'keys-products');}
+function renderAll(){
+  renderSection(tb3Products,'tb3-products');
+  renderSection(ps2Products,'ps2-products');
+  renderSection(keysProducts,'keys-products');
+}
 function renderCart(){
-  const c=document.getElementById('cart-items');const t=document.getElementById('total');c.innerHTML='';let tot=0;
+  const c=document.getElementById('cart-items');const t=document.getElementById('total');
+  c.innerHTML='';let tot=0;
   cart.forEach(it=>{const li=document.createElement('li');li.textContent=`${it.name} - $${it.price}`;c.appendChild(li);tot+=it.price;});
   t.textContent=tot.toFixed(2);
 }
 function checkout(){if(cart.length===0){alert("Basket empty");return;}let tot=cart.reduce((s,it)=>s+it.price,0);window.open("https://paypal.me/Keypurchase/"+tot,"_blank");cart=[];renderAll();renderCart();}
 function openBasket(){document.getElementById('basketModal').style.display='flex';}
 function closeBasket(){document.getElementById('basketModal').style.display='none';}
-function addReview(){const t=document.getElementById('review-text').value.trim();if(!t)return alert("Write something");const div=document.createElement('div');div.className='review-item';let stars=Math.floor(Math.random()*5)+1;div.innerHTML=`<span>${t}</span><span>${'★'.repeat(stars)}</span>`;document.getElementById('reviews-list').prepend(div);document.getElementById('review-text').value='';}
-function openTab(evt,name){const tabs=document.getElementsByClassName('tablink');for(let t of tabs)t.classList.remove('active');evt.currentTarget.classList.add('active');const conts=document.getElementsByClassName('tabcontent');for(let c of conts)c.classList.remove('active');document.getElementById(name).classList.add('active');}
+function addReview(){const t=document.getElementById('review-text').value.trim();if(!t)return alert("Write something");const div=document.createElement('div');let stars=Math.floor(Math.random()*5)+1;div.innerHTML=`<span>${t}</span> <span>${'★'.repeat(stars)}</span>`;document.getElementById('reviews-list').prepend(div);document.getElementById('review-text').value='';}
 renderAll();
-const canvas=document.getElementById('bgCanvas');const ctx=canvas.getContext('2d');let w,h;function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;}window.addEventListener('resize',resize);resize();
-const particles=[];for(let i=0;i<160;i++){particles.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2+1,speed:Math.random()*0.3+0.1})}
-function animate(){ctx.clearRect(0,0,w,h);particles.forEach(p=>{p.x+=p.speed;if(p.x>w)p.x=0,p.y=Math.random()*h;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,0.35)';ctx.fill();});requestAnimationFrame(animate);}animate();
 </script>
 </body>
 </html>
