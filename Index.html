@@ -5,183 +5,130 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JHUB Shop</title>
 <style>
-/* Global */
-body,html {
+/* -------------------- GLOBAL -------------------- */
+body, html {
   margin:0; padding:0;
   font-family:'Inter','Segoe UI',sans-serif;
-  background:#0f0f0f;
-  color:#f1f1f1;
-  overflow-x:hidden;
+  background:#0f0f0f; color:#f1f1f1; overflow-x:hidden;
 }
-a { color:inherit; text-decoration:none; }
+a{color:inherit;text-decoration:none;}
 
-/* Header */
+/* -------------------- HEADER -------------------- */
 header {
   display:flex; justify-content:space-between; align-items:center;
   padding:14px 20px;
   background:#111;
   position:fixed; top:0; left:0; right:0;
-  z-index:1000;
-  border-bottom:1px solid #222;
+  z-index:1000; border-bottom:1px solid #222;
 }
-header h1 {
-  font-size:20px; margin:0; font-weight:600;
-}
+header h1 { font-size:20px; margin:0; font-weight:600; }
 header .actions {
   display:flex; gap:12px; align-items:center;
 }
 header .actions button {
-  padding:6px 12px;
-  font-size:14px;
-  border:none;
-  border-radius:6px;
-  background:#fff; color:#000;
-  cursor:pointer;
-  transition:background .2s;
+  padding:6px 12px; font-size:14px;
+  border:none; border-radius:6px; background:#fff; color:#000;
+  cursor:pointer; transition:background .2s;
 }
-header .actions button:hover { background:#e2e2e2; }
+header .actions button:hover{background:#e2e2e2;}
 
-/* Hamburger */
+/* -------------------- HAMBURGER -------------------- */
 .menu-btn {
-  display:none;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  width:34px; height:34px;
-  cursor:pointer;
-  border-radius:6px;
+  display:none; flex-direction:column; justify-content:center; align-items:center;
+  width:34px; height:34px; cursor:pointer; border-radius:6px;
   background:rgba(255,255,255,0.08);
 }
 .menu-btn div {
-  width:20px; height:2px;
-  background:#fff;
-  margin:3px 0;
-  border-radius:1px;
+  width:20px; height:2px; background:#fff; margin:3px 0; border-radius:1px;
   transition:transform .3s, opacity .3s;
 }
-.menu-btn.open div:nth-child(1) { transform:translateY(5px) rotate(45deg); }
-.menu-btn.open div:nth-child(2) { opacity:0; }
-.menu-btn.open div:nth-child(3) { transform:translateY(-5px) rotate(-45deg); }
+.menu-btn.open div:nth-child(1){transform:translateY(5px) rotate(45deg);}
+.menu-btn.open div:nth-child(2){opacity:0;}
+.menu-btn.open div:nth-child(3){transform:translateY(-5px) rotate(-45deg);}
 
-/* Slide menu (mobile) */
-.mobile-menu {
-  position:fixed; top:0; right:-240px;
-  width:200px; height:100%;
-  background:#181818;
-  padding:60px 20px;
-  transition:right .3s;
-  z-index:999;
+/* -------------------- MOBILE MENU -------------------- */
+.mobile-menu{
+  position:fixed; top:0; right:-240px; width:200px; height:100%;
+  background:#181818; padding:60px 20px; transition:right .3s; z-index:999;
 }
-.mobile-menu.open { right:0; }
-.mobile-menu button {
-  display:block; width:100%;
-  background:none; border:none;
-  padding:12px 0;
-  font-size:15px;
-  text-align:left;
-  color:#f1f1f1;
-  cursor:pointer;
+.mobile-menu.open{right:0;}
+.mobile-menu button{
+  display:block; width:100%; background:none; border:none;
+  padding:12px 0; font-size:15px; text-align:left; color:#f1f1f1; cursor:pointer;
 }
-.mobile-menu button:hover { color:#ddd; }
+.mobile-menu button:hover{color:#ddd;}
 
-/* Content */
-main {
-  max-width:1000px;
-  margin:100px auto 40px auto;
-  padding:0 20px;
+/* -------------------- MAIN CONTENT -------------------- */
+main{
+  max-width:1000px; margin:100px auto 40px auto; padding:0 20px;
 }
-.section-title {
-  font-size:18px; font-weight:500;
-  margin:30px 0 16px 0;
-  border-bottom:1px solid #222;
-  padding-bottom:6px;
+.section-title{
+  font-size:18px; font-weight:500; margin:30px 0 16px 0;
+  border-bottom:1px solid #222; padding-bottom:6px;
 }
-.products {
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-  gap:20px;
+.products{
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:20px;
 }
-.product {
-  background:#1a1a1a;
-  border:1px solid #222;
-  border-radius:8px;
-  padding:16px;
+.product{
+  background:#1a1a1a; border:1px solid #222; border-radius:8px; padding:16px;
   transition:transform .2s, box-shadow .2s;
 }
-.product:hover {
-  transform:translateY(-3px);
-  box-shadow:0 4px 12px rgba(0,0,0,.5);
+.product:hover{transform:translateY(-3px); box-shadow:0 4px 12px rgba(0,0,0,.5);}
+.product h3{margin:0 0 8px 0; font-size:16px;}
+.product p{margin:4px 0; font-size:14px; color:#aaa;}
+.product button{
+  margin-top:10px; width:100%; padding:8px;
+  border:none; border-radius:6px; font-size:14px;
+  background:#fff; color:#000; cursor:pointer; transition:background .2s;
 }
-.product h3 { margin:0 0 8px 0; font-size:16px; }
-.product p { margin:4px 0; font-size:14px; color:#aaa; }
-.product button {
-  margin-top:10px;
-  width:100%;
-  padding:8px;
-  border:none;
-  border-radius:6px;
-  font-size:14px;
-  background:#fff; color:#000;
-  cursor:pointer;
-  transition:background .2s;
-}
-.product button:hover { background:#e2e2e2; }
+.product button:hover{background:#e2e2e2;}
 
-/* Basket modal */
-.modal {
-  position:fixed; inset:0;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  background:rgba(0,0,0,.7);
-  z-index:1001;
+/* -------------------- BASKET MODAL -------------------- */
+.modal{
+  position:fixed; inset:0; display:none; justify-content:center; align-items:center;
+  background:rgba(0,0,0,.7); z-index:1001;
 }
-.modal-content {
-  background:#1a1a1a;
-  border-radius:8px;
-  padding:20px;
-  width:90%; max-width:380px;
-  text-align:center;
-  font-size:14px;
+.modal-content{
+  background:#1a1a1a; border-radius:8px; padding:20px;
+  width:90%; max-width:380px; text-align:center; font-size:14px;
 }
-.modal-content h3 { margin-top:0; }
+.modal-content h3{margin-top:0;}
 
-/* Reviews */
-.reviews-list {
-  max-height:220px;
-  overflow-y:auto;
-  border:1px solid #222;
-  padding:10px;
-  border-radius:6px;
-  margin-bottom:10px;
-  font-size:14px;
+/* -------------------- REVIEWS -------------------- */
+.reviews-list{
+  max-height:220px; overflow-y:auto; border:1px solid #222; padding:10px;
+  border-radius:6px; margin-bottom:10px; font-size:14px;
 }
-textarea {
-  width:100%;
-  background:#111;
-  border:1px solid #222;
-  border-radius:6px;
-  color:#fff;
-  padding:8px;
-  font-size:14px;
-  margin-bottom:10px;
+textarea{
+  width:100%; background:#111; border:1px solid #222; border-radius:6px;
+  color:#fff; padding:8px; font-size:14px; margin-bottom:10px;
 }
-.submit-review {
-  padding:8px 12px;
-  background:#fff; color:#000;
-  border:none; border-radius:6px;
-  cursor:pointer;
-  font-size:14px;
+.submit-review{
+  padding:8px 12px; background:#fff; color:#000; border:none;
+  border-radius:6px; cursor:pointer; font-size:14px;
 }
 
-/* Responsive */
-@media(max-width:800px){
-  nav { display:none; }
-  .menu-btn { display:flex; }
+/* -------------------- COMPACT TOS + PRIVACY -------------------- */
+.legal-cards{
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px;
 }
+.legal-card{
+  background:#151515; border:1px solid #222; border-radius:8px;
+  padding:10px; font-size:12.5px; color:#ddd; line-height:1.45;
+  max-height:230px; overflow:auto; box-shadow:0 2px 8px rgba(0,0,0,.35);
+}
+.legal-card h3{margin:0 0 6px 0; font-size:13px; color:#f1f1f1; font-weight:600;}
+.legal-card .muted{font-size:11px;color:#9a9a9a;margin-bottom:6px;}
+details.legal-card{padding:0; overflow:hidden;}
+details.legal-card summary{list-style:none; cursor:pointer; padding:10px; background:#151515; position:sticky; top:0; z-index:1; border-bottom:1px solid #222;}
+details.legal-card[open] summary{border-bottom-color:#2a2a2a;}
+details.legal-card summary::-webkit-details-marker{display:none;}
+.legal-body{padding:10px;}
+@media(max-width:800px){.legal-cards{grid-template-columns:1fr;} nav{display:none;} .menu-btn{display:flex;}}
 </style>
 </head>
 <body>
+
 <header>
   <h1>JHUB</h1>
   <div class="actions">
@@ -200,6 +147,7 @@ textarea {
 </div>
 
 <main>
+  <!-- Products -->
   <div id="Products" class="tabcontent active">
     <div class="section-title">TB3</div>
     <div class="products" id="tb3-products"></div>
@@ -209,16 +157,48 @@ textarea {
     <div class="products" id="keys-products"></div>
   </div>
 
+  <!-- Reviews -->
   <div id="Reviews" class="tabcontent" style="display:none;">
     <div class="reviews-list" id="reviews-list"></div>
     <textarea id="review-text" placeholder="Write your review..."></textarea>
     <button class="submit-review" onclick="addReview()">Submit Review</button>
   </div>
 
+  <!-- TOS + Privacy -->
   <div id="TOS" class="tabcontent" style="display:none;">
-    <div class="section-title">Terms of Service</div>
-    <p>All sales are final. Join our Discord and create a ticket with proof to receive your account.</p>
+    <div class="section-title">Legal</div>
+    <div class="legal-cards">
+
+      <details class="legal-card">
+        <summary><h3>Terms of Service</h3><span class="muted">Last updated: September 1, 2025</span></summary>
+        <div class="legal-body">
+          <p><strong>1) General.</strong> JHUB provides digital products/services. By purchasing, you agree to these terms. We may update products/terms at any time.</p>
+          <p><strong>2) Purchases.</strong> Prices in USD unless stated. Payments via PayPal. Delivery via Discord ticket.</p>
+          <p><strong>3) Refunds.</strong> All sales are final. Chargebacks may result in account ban.</p>
+          <p><strong>4) License.</strong> Personal, non-transferable use only. No sharing or resale.</p>
+          <p><strong>5) Support.</strong> Provided via Discord only.</p>
+          <p><strong>6) Liability.</strong> Use at your own risk.</p>
+          <p><strong>7) Eligibility.</strong> 18+ or guardian consent.</p>
+          <p><strong>8) Acceptance.</strong> Purchase/use = agreement.</p>
+        </div>
+      </details>
+
+      <details class="legal-card">
+        <summary><h3>Privacy Policy</h3><span class="muted">Last updated: September 1, 2025</span></summary>
+        <div class="legal-body">
+          <p><strong>1) Data We Collect.</strong> Discord handle, order info. Payments handled by PayPal; we do not store card data.</p>
+          <p><strong>2) Use.</strong> Order processing, delivery, support, fraud prevention.</p>
+          <p><strong>3) Sharing.</strong> Never sold. Shared only with providers as needed or by law.</p>
+          <p><strong>4) Security.</strong> Data stored securely. Payment via PayPal.</p>
+          <p><strong>5) Rights.</strong> Request access/deletion via Discord.</p>
+          <p><strong>6) Children.</strong> Under 13 not permitted.</p>
+          <p><strong>7) Changes.</strong> Updates appear on this page.</p>
+        </div>
+      </details>
+
+    </div>
   </div>
+
 </main>
 
 <!-- Basket Modal -->
@@ -233,24 +213,27 @@ textarea {
 </div>
 
 <script>
+// -------------------- HAMBURGER --------------------
 function toggleMobileMenu(){
   document.querySelector('.menu-btn').classList.toggle('open');
   document.getElementById('mobileMenu').classList.toggle('open');
 }
-// Tabs
+
+// -------------------- TABS --------------------
 function openTab(evt,name){
   document.querySelectorAll('.tabcontent').forEach(c=>c.style.display='none');
   document.getElementById(name).style.display='block';
 }
-// Products
-const tb3Products=[{name:"990K",price:3,stock:5,sold:0},{name:"1.8M",price:4,stock:4,sold:0},{name:"3M",price:6,stock:2,sold:0}];
-const ps2Products=[{name:"5M",price:5,stock:5,sold:0},{name:"10M",price:8,stock:3,sold:0},{name:"InfCash",price:12,stock:2,sold:0}];
-const keysProducts=[{name:"7 Days",price:4,stock:10,sold:0},{name:"1 Month",price:7,stock:5,sold:0},{name:"LifeTime",price:20,stock:1,sold:0}];
+
+// -------------------- PRODUCTS --------------------
+const tb3Products=[{name:"990K",price:3,stock:5},{name:"1.8M",price:4,stock:4},{name:"3M",price:6,stock:2}];
+const ps2Products=[{name:"5M",price:5,stock:5},{name:"10M",price:8,stock:3},{name:"InfCash",price:12,stock:2}];
+const keysProducts=[{name:"7 Days",price:4,stock:10},{name:"1 Month",price:7,stock:5},{name:"LifeTime",price:20,stock:1}];
 let cart=[];
 function renderSection(sectionArray,containerId){
   const c=document.getElementById(containerId); c.innerHTML='';
   sectionArray.forEach((p,i)=>{
-    const div=document.createElement('div');div.className='product';
+    const div=document.createElement('div'); div.className='product';
     div.innerHTML=`<h3>${p.name}</h3>
     <p>$${p.price}</p>
     <p>Stock: ${p.stock}</p>
@@ -264,24 +247,38 @@ function addToCart(i,section){
   if(section==='tb3-products') product=tb3Products[i];
   else if(section==='ps2-products') product=ps2Products[i];
   else if(section==='keys-products') product=keysProducts[i];
-  if(product.stock>0){cart.push(product);product.stock--;product.sold++;renderAll();renderCart();}
+  if(product.stock>0){cart.push(product);product.stock--;renderAll();renderCart();}
 }
 function renderAll(){
   renderSection(tb3Products,'tb3-products');
   renderSection(ps2Products,'ps2-products');
   renderSection(keysProducts,'keys-products');
 }
+
+// -------------------- CART --------------------
 function renderCart(){
-  const c=document.getElementById('cart-items');const t=document.getElementById('total');
-  c.innerHTML='';let tot=0;
-  cart.forEach(it=>{const li=document.createElement('li');li.textContent=`${it.name} - $${it.price}`;c.appendChild(li);tot+=it.price;});
+  const c=document.getElementById('cart-items'); const t=document.getElementById('total'); c.innerHTML=''; let tot=0;
+  cart.forEach(it=>{const li=document.createElement('li'); li.textContent=`${it.name} - $${it.price}`; c.appendChild(li); tot+=it.price;});
   t.textContent=tot.toFixed(2);
 }
-function checkout(){if(cart.length===0){alert("Basket empty");return;}let tot=cart.reduce((s,it)=>s+it.price,0);window.open("https://paypal.me/Keypurchase/"+tot,"_blank");cart=[];renderAll();renderCart();}
+function checkout(){if(cart.length===0){alert("Basket empty"); return;} let tot=cart.reduce((s,it)=>s+it.price,0); window.open("https://paypal.me/Keypurchase/"+tot,"_blank"); cart=[]; renderAll(); renderCart();}
 function openBasket(){document.getElementById('basketModal').style.display='flex';}
 function closeBasket(){document.getElementById('basketModal').style.display='none';}
-function addReview(){const t=document.getElementById('review-text').value.trim();if(!t)return alert("Write something");const div=document.createElement('div');let stars=Math.floor(Math.random()*5)+1;div.innerHTML=`<span>${t}</span> <span>${'★'.repeat(stars)}</span>`;document.getElementById('reviews-list').prepend(div);document.getElementById('review-text').value='';}
+
+// -------------------- REVIEWS --------------------
+function addReview(){
+  const t=document.getElementById('review-text').value.trim();
+  if(!t)return alert("Write something");
+  const div=document.createElement('div');
+  let stars=Math.floor(Math.random()*5)+1;
+  div.innerHTML=`<span>${t}</span> <span>${'★'.repeat(stars)}</span>`;
+  document.getElementById('reviews-list').prepend(div);
+  document.getElementById('review-text').value='';
+}
+
+// -------------------- INITIAL --------------------
 renderAll();
 </script>
+
 </body>
 </html>
