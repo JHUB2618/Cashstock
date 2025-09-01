@@ -5,261 +5,168 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JHUB Shop</title>
 <style>
-  body, html {
-    margin:0;
-    padding:0;
-    font-family: Arial,sans-serif;
-    overflow-x: hidden;
-    height:100%;
-    background: black;
-  }
-  canvas#stars {
-    position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index: -1;
-  }
-  header {
-    text-align:center;
-    padding:30px;
-    font-size:32px;
-    font-weight:bold;
-    color:#fff;
-    text-shadow:2px 2px 8px #000;
-  }
-  .products{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:20px;
-    padding:20px;
-  }
-  .product{
-    background-color: rgba(0,0,0,0.7);
-    border-radius:12px;
-    padding:20px;
-    text-align:center;
-    width:220px;
-    box-shadow:0 0 15px rgba(255,255,255,0.2);
-    border:1px solid rgba(255,255,255,0.1);
-  }
-  .product button{
-    margin-top:15px;
-    background-color:#03a9f4;
-    border:none;
-    padding:15px;
-    width:100%;
-    color:white;
-    border-radius:8px;
-    font-size:18px;
-    cursor:pointer;
-    transition:0.3s;
-  }
-  .product button:hover{
-    background-color:#0288d1;
-  }
-  .stock {
-    margin-top:10px;
-    font-weight:bold;
-    color:#ffeb3b;
-    font-size:16px;
-  }
-  #cart{
-    position:fixed;
-    top:20px;
-    right:20px;
-    background-color:rgba(0,0,0,0.85);
-    padding:15px;
-    border-radius:12px;
-    width:240px;
-    max-height:80%;
-    overflow-y:auto;
-    box-shadow:0 0 20px rgba(255,255,255,0.2);
-  }
-  #cart h3{text-align:center;margin-top:0;color:#fff;}
-  #cart ul{list-style:none;padding-left:0;margin:0 0 10px 0;}
-  #cart ul li{padding:5px 0;}
-  #cart button{
-    width:100%;
-    background-color:#ff9800;
-    margin-top:10px;
-    color:white;
-    border:none;
-    padding:12px;
-    border-radius:5px;
-    cursor:pointer;
-    font-size:16px;
-  }
-  #cart button:hover{background-color:#e68900;}
+body,html{margin:0;padding:0;font-family:'Segoe UI',sans-serif;background:#111;color:#fff;overflow-x:hidden;}
+canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;}
+header{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;background:rgba(20,20,20,0.95);position:fixed;width:100%;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.5);}
+header h1{font-size:28px;}
+.menu-btn{display:none;flex-direction:column;cursor:pointer;z-index:1010;}
+.menu-btn div{width:25px;height:3px;background:#fff;margin:4px 0;transition:.4s;}
+nav{display:flex;gap:20px;}
+nav button{background:none;border:none;color:#fff;font-size:16px;cursor:pointer;transition:.3s;padding:8px 12px;border-radius:6px;}
+nav button:hover,nav button.active{background:linear-gradient(45deg,#555,#777);color:#fff;box-shadow:0 0 10px rgba(255,255,255,.5);}
+.tabcontent{display:none;padding:100px 20px 20px 20px;max-width:1200px;margin:0 auto;}
+.tabcontent.active{display:block;}
+.section-title{font-size:22px;margin:20px 0 10px 0;border-bottom:1px solid #444;padding-bottom:5px;transition:.3s;}
+.section-title:hover{color:#aaa;}
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;margin-bottom:30px;}
+.product{background:#1e1e1e;padding:15px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.5);transition:.3s;}
+.product:hover{transform:translateY(-5px);box-shadow:0 6px 20px rgba(0,0,0,.8);border:1px solid #777;}
+.product h3,p,button{margin:5px 0;}
+.product button{background:linear-gradient(45deg,#555,#777);border:none;color:#fff;padding:10px;width:100%;border-radius:6px;cursor:pointer;transition:.3s;}
+.product button:hover{background:linear-gradient(45deg,#777,#999);box-shadow:0 0 8px rgba(255,255,255,.5);}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,.95);z-index:1000;}
+.modal-content{background:#222;padding:20px;border-radius:12px;width:90%;max-width:400px;text-align:center;box-shadow:0 0 25px rgba(255,255,255,.2);}
+textarea{width:100%;height:50px;background:#1e1e1e;border:none;border-radius:6px;color:#fff;padding:8px;margin-bottom:8px;font-size:13px;}
+.submit-review{background:linear-gradient(45deg,#555,#777);color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:13px;}
+.submit-review:hover{background:linear-gradient(45deg,#777,#999);}
+.reviews-list{max-height:250px;overflow-y:auto;border:1px solid #444;padding:10px;border-radius:6px;margin-bottom:10px;}
+.tos{max-height:300px;overflow-y:auto;background:#1e1e1e;border-radius:8px;padding:8px;font-size:13px;}
 
-  /* Modal styles */
-  #modal {
-    position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background-color: rgba(0,0,0,0.85);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index: 9999;
-    display:none;
-  }
-  #modal-content {
-    background-color: #111;
-    color: #fff;
-    padding:20px;
-    border-radius:12px;
-    width:90%;
-    max-width:400px;
-    text-align:center;
-    box-shadow:0 0 20px rgba(255,255,255,0.2);
-  }
-  #modal-content button {
-    margin-top:15px;
-    padding:10px 15px;
-    border:none;
-    border-radius:5px;
-    background-color:#03a9f4;
-    color:white;
-    cursor:pointer;
-    font-size:16px;
-  }
-  #modal-content button:hover {
-    background-color:#0288d1;
-  }
-  #modal-content pre {
-    background-color:#000;
-    padding:10px;
-    border-radius:8px;
-    text-align:left;
-    white-space: pre-wrap;
-  }
+/* MOBILE HAMBURGER */
+@media(max-width:800px){
+  .menu-btn{display:flex;}
+  nav{display:none;flex-direction:column;background:rgba(20,20,20,.95);position:absolute;top:60px;right:10px;width:200px;padding:10px;border-radius:6px;z-index:1000;}
+  nav.active{display:flex;}
+}
 </style>
 </head>
 <body>
 
-<canvas id="stars"></canvas>
+<canvas id="bgCanvas"></canvas>
 
-<header>JHUB Shop</header>
+<header>
+  <h1>JHUB</h1>
+  <div class="menu-btn" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <nav>
+    <button class="tablink active" onclick="openTab(event,'Products')">Products</button>
+    <button class="tablink" onclick="openTab(event,'Reviews')">Reviews</button>
+    <button class="tablink" onclick="openTab(event,'TOS')">TOS</button>
+  </nav>
+</header>
 
-<div class="products" id="products"></div>
+<div id="Products" class="tabcontent active">
+  <button id="basketBtn" onclick="openBasket()">🛒 Check Basket</button>
 
-<div id="cart">
-  <h3>Shopping Cart</h3>
-  <ul id="cart-items"></ul>
-  <p>Total: $<span id="total">0</span></p>
-  <button onclick="checkout()">Checkout with PayPal</button>
+  <div class="section-title">TB3</div>
+  <div class="products" id="tb3-products"></div>
+
+  <div class="section-title">PS2</div>
+  <div class="products" id="ps2-products"></div>
+
+  <div class="section-title">Keys</div>
+  <div class="products" id="keys-products"></div>
 </div>
 
-<!-- Modal Delivery -->
-<div id="modal">
-  <div id="modal-content">
-    <h2>Thank you for your purchase!</h2>
-    <pre id="account-details"></pre>
-    <button onclick="closeModal()">Close</button>
+<div id="Reviews" class="tabcontent">
+  <div class="reviews-list" id="reviews-list"></div>
+  <textarea id="review-text" placeholder="Write your review..."></textarea>
+  <button class="submit-review" onclick="addReview()">Submit Review</button>
+</div>
+
+<div id="TOS" class="tabcontent">
+  <div class="tos">
+    <h3>Terms of Service</h3>
+    <p>All sales are final. Join our Discord and create a ticket with proof to receive your account.</p>
   </div>
 </div>
 
+<div id="basketModal" class="modal">
+<div class="modal-content">
+<h2>Your Basket</h2>
+<ul id="cart-items"></ul>
+<p>Total: $<span id="total">0</span></p>
+<button onclick="checkout()">Checkout with PayPal</button><br>
+<button onclick="closeBasket()">Close</button>
+</div>
+</div>
+
 <script>
-// ====== Products with stock ======
-const products = [
-  { name:"5M Account", price:5, stock:5, details:"Username: user5M | Password: pass123", link:"https://paypal.me/Keypurchase?country.x=GB&locale.x=en_GB" },
-  { name:"10M Account", price:8, stock:3, details:"Username: user10M | Password: pass456", link:"https://paypal.me/Keypurchase?country.x=GB&locale.x=en_GB" },
-  { name:"inf cash account", price:13, stock:2, details:"Username: userInf | Password: pass789", link:"https://paypal.me/Keypurchase?country.x=GB&locale.x=en_GB" }
+// Hamburger toggle
+function toggleMenu(){document.querySelector('nav').classList.toggle('active');}
+
+// Products
+const tb3Products=[
+{name:"990K",price:3,stock:5,sold:0},
+{name:"1.8M",price:4,stock:4,sold:0},
+{name:"3M",price:6,stock:2,sold:0}
 ];
+const ps2Products=[
+{name:"5M",price:5,stock:5,sold:0},
+{name:"10M",price:8,stock:3,sold:0},
+{name:"InfCash",price:12,stock:2,sold:0}
+];
+const keysProducts=[
+{name:"7 Days",price:4,stock:10,sold:0},
+{name:"1 Month",price:7,stock:5,sold:0},
+{name:"LifeTime",price:20,stock:1,sold:0}
+];
+let cart=[];
 
-const cart=[];
-const container=document.getElementById('products');
-
-function renderProducts(){
+// Render section
+function renderSection(sectionArray,containerId){
+  const container=document.getElementById(containerId);
   container.innerHTML='';
-  products.forEach((product,index)=>{
+  sectionArray.forEach((p,i)=>{
     const div=document.createElement('div');
-    div.classList.add('product');
-    div.innerHTML=`<h3>${product.name} ($${product.price})</h3>
-    <div class="stock">Stock: ${product.stock}</div>
-    <button onclick="addToCart(${index})">Add to Cart</button>`;
+    div.className='product';
+    div.innerHTML=`<h3>${p.name}</h3><p>$${p.price}</p><p>Stock: ${p.stock}</p><p>Sold: ${p.sold}</p><button ${p.stock<=0?'disabled':''} onclick="addToCart(${i},'${containerId}')">${p.stock<=0?'Sold Out':'Add to Basket'}</button>`;
     container.appendChild(div);
   });
 }
 
-function addToCart(index){
-  if(products[index].stock<=0){alert("Out of stock!");return;}
-  const product=products[index];
-  cart.push(product);
-  product.stock--;
-  renderProducts();
-  renderCart();
+// Add to cart
+function addToCart(i,section){
+  let product;
+  if(section==='tb3-products') product=tb3Products[i];
+  else if(section==='ps2-products') product=ps2Products[i];
+  else if(section==='keys-products') product=keysProducts[i];
+  if(product.stock>0){cart.push(product);product.stock--;product.sold++;renderAll();renderCart();}
 }
 
+// Render all
+function renderAll(){
+  renderSection(tb3Products,'tb3-products');
+  renderSection(ps2Products,'ps2-products');
+  renderSection(keysProducts,'keys-products');
+}
+
+// Cart
 function renderCart(){
-  const cartItems=document.getElementById('cart-items');
-  const totalEl=document.getElementById('total');
-  cartItems.innerHTML='';
-  let total=0;
-  cart.forEach((item,index)=>{
-    const li=document.createElement('li');
-    li.textContent=`${item.name} - $${item.price}`;
-    li.style.cursor='pointer';
-    li.onclick=()=>{ 
-      cart.splice(index,1);
-      const pIndex = products.findIndex(p=>p.name===item.name);
-      if(pIndex>=0) products[pIndex].stock++;
-      renderProducts();
-      renderCart();
-    };
-    cartItems.appendChild(li);
-    total+=item.price;
-  });
-  totalEl.textContent=total.toFixed(2);
+  const c=document.getElementById('cart-items');const t=document.getElementById('total');c.innerHTML='';let tot=0;
+  cart.forEach(it=>{const li=document.createElement('li');li.textContent=`${it.name} - $${it.price}`;c.appendChild(li);tot+=it.price;});
+  t.textContent=tot.toFixed(2);
 }
+function checkout(){if(cart.length===0){alert("Basket empty");return;}let tot=cart.reduce((s,it)=>s+it.price,0);window.open("https://paypal.me/Keypurchase/"+tot,"_blank");cart=[];renderAll();renderCart();}
+function openBasket(){document.getElementById('basketModal').style.display='flex';}
+function closeBasket(){document.getElementById('basketModal').style.display='none';}
 
-// Checkout with modal
-function checkout(){
-  if(cart.length===0){alert("Your cart is empty!");return;}
-  let total=0;
-  cart.forEach(item=>total+=item.price);
-  window.open("https://paypal.me/Keypurchase/"+total,"_blank");
-  let details=cart.map(item=>item.details).join("\n\n");
-  document.getElementById('account-details').textContent=details;
-  document.getElementById('modal').style.display='flex';
-  cart.length=0;
-  renderCart();
-}
+// Reviews
+function addReview(){const t=document.getElementById('review-text').value.trim();if(!t)return alert("Write something");const div=document.createElement('div');div.className='review-item';let stars=Math.floor(Math.random()*5)+1;div.innerHTML=`<span>${t}</span><span>${'★'.repeat(stars)}</span>`;document.getElementById('reviews-list').prepend(div);document.getElementById('review-text').value='';}
 
-function closeModal(){document.getElementById('modal').style.display='none';}
+// Tabs
+function openTab(evt,name){const tabs=document.getElementsByClassName('tablink');for(let t of tabs)t.classList.remove('active');evt.currentTarget.classList.add('active');const conts=document.getElementsByClassName('tabcontent');for(let c of conts)c.classList.remove('active');document.getElementById(name).classList.add('active');}
 
-// ====== Stars Background ======
-const canvas=document.getElementById('stars');
-const ctx=canvas.getContext('2d');
-let w,h;
-function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;}
-window.addEventListener('resize',resize);
-resize();
+renderAll();
 
-const stars=[];
-for(let i=0;i<150;i++){
-  stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.5,speed:Math.random()*0.5+0.1});
-}
-
-function animateStars(){
-  ctx.clearRect(0,0,w,h);
-  stars.forEach(s=>{
-    s.x+=s.speed;
-    if(s.x>w){s.x=0;s.y=Math.random()*h;}
-    ctx.beginPath();
-    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-    ctx.fillStyle='white';
-    ctx.fill();
-  });
-  requestAnimationFrame(animateStars);
-}
-
-animateStars();
-renderProducts();
+// Particle background
+const canvas=document.getElementById('bgCanvas');const ctx=canvas.getContext('2d');let w,h;function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;}window.addEventListener('resize',resize);resize();
+const particles=[];for(let i=0;i<200;i++){particles.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2+1,speed:Math.random()*0.3+0.1})}
+function animate(){ctx.clearRect(0,0,w,h);particles.forEach(p=>{p.x+=p.speed;if(p.x>w)p.x=0,p.y=Math.random()*h;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,0.4)';ctx.fill();});requestAnimationFrame(animate);}
+animate();
 </script>
-
 </body>
 </html>
